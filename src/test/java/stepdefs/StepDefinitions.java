@@ -16,11 +16,11 @@ public class StepDefinitions {
     public void i_am_on_the_page_on_URL() throws Throwable {
         System.setProperty("webdriver.chrome.driver","C:\\Chromedriver\\chromedriver.exe");
 
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver;
+        driver = new ChromeDriver();
 
         driver.get("http://newtours.demoaut.com/");
 
-        Thread.sleep(5000);
         throw new PendingException();
     }
 
