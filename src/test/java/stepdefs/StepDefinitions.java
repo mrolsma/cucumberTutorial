@@ -7,27 +7,38 @@ package stepdefs;
         import cucumber.api.java.en.When;
         import org.openqa.selenium.WebDriver;
         import org.openqa.selenium.chrome.ChromeDriver;
+        import org.openqa.selenium.By;
+        import java.util.concurrent.TimeUnit;
 
-/**
- * Created by thilinaga on 7/3/2017.
- */
+        import static java.lang.Thread.sleep;
+
+
 public class StepDefinitions {
-    @Given("^I am on the page demoaut$")
-    public void i_am_on_the_page_on_URL() throws Throwable {
-        System.setProperty("webdriver.chrome.driver","C:\\Chromedriver\\chromedriver.exe");
 
-        WebDriver driver;
+    public static WebDriver driver;
+
+    @Given("^I am on the page demoaut$")
+    public void i_am_on_the_page_demoaut() throws Throwable {
+        System.setProperty("webdriver.chrome.driver","C:\\Chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         driver.get("http://newtours.demoaut.com/");
 
-        throw new PendingException();
     }
 
-    @When("^I fill in \"([^\"]*)\" with \"([^\"]*)\"$")
-    public void i_fill_in_with(String arg1, String arg2) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @When("^I login$")
+    public void i_login() throws Throwable {
+
+        driver.findElement(By.name("userName")).sendKeys("Pino");
+
+        driver.findElement(By.name("password")).sendKeys("123");
+
+        driver.findElement(By.name("login")).click();
+
+
+
+
     }
 
     @When("^I click on the \"([^\"]*)\" button$")
@@ -36,10 +47,19 @@ public class StepDefinitions {
         throw new PendingException();
     }
 
-    @Then("^I should see \"([^\"]*)\" message$")
-    public void i_should_see_message(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @Then("I am the page demoaut")
+    public void i_should_see_message() throws Throwable {
+
+
+        if(driver.getPageSource().contains("Flight Finder"))
+        {
+            System.out.println("Page loaded");
+        }
+        else
+        {
+            throw new PendingException();
+        }
+
     }
 
     @Then("^I should see the \"([^\"]*)\" button$")
